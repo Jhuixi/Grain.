@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "rsuite": "^5.83.4"
+  }
+}
