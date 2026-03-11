@@ -4,7 +4,7 @@ const getAllMenuItems = async () => {
   try {
     const result = await pool.query(`
       SELECT * FROM menu_items 
-      WHERE qty != 0
+      --WHERE qty != 0
       ORDER BY category, item_id
     `)
     return result.rows
@@ -18,7 +18,8 @@ const getMenuItemById = async (itemId) => {
   try {
     const result = await pool.query(`
       SELECT * FROM menu_items 
-      WHERE item_id = $1 AND qty != 0
+      WHERE item_id = $1 
+      --AND qty != 0
     `, [itemId])
     
     return result.rows[0]
@@ -31,9 +32,10 @@ const getMenuItemById = async (itemId) => {
 const getMenuItemsByCategory = async (category) => {
   try {
     const result = await pool.query(`
-      SELECT item_id, name, description, category, image_url, price, available
+      SELECT item_id, name, description, category, image_url, available
       FROM menu_items 
-      WHERE category = $1 AND qty != 0
+      WHERE category = $1 
+      --AND qty != 0
       ORDER BY name
     `, [category])
     

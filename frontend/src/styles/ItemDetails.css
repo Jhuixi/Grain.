@@ -1,0 +1,410 @@
+/* ItemDetails.css */
+.item-details-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+}
+
+/* Back Button */
+.btn-back {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s;
+}
+
+.btn-back:hover {
+  color: #333;
+}
+
+/* Loading and Error States */
+.loading-container,
+.error-container,
+.not-found {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #e44d26;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Main Layout */
+.item-main {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+  .item-main {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+/* Image Section */
+.item-image-section {
+  position: relative;
+}
+
+.item-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+  aspect-ratio: 1/1;
+}
+
+.item-category-badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Info Section */
+.item-info-section {
+  padding: 10px 0;
+}
+
+.item-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+}
+
+.item-price {
+  font-size: 28px;
+  font-weight: 700;
+  color: #e44d26;
+  margin-bottom: 25px;
+}
+
+.item-description,
+.item-allergies {
+  margin-bottom: 25px;
+}
+
+.item-description h3,
+.item-allergies h3 {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.item-description p,
+.item-allergies p {
+  color: #666;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.item-allergies {
+  background: #fff8f6;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid #ff6b6b;
+}
+
+.item-allergies h3 {
+  color: #d63031;
+  margin-top: 0;
+}
+
+/* Customisations */
+.customisations-section {
+  margin: 35px 0;
+  padding: 25px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.customisations-section h2 {
+  font-size: 22px;
+  margin: 0 0 20px 0;
+  color: #333;
+}
+
+.customisation-group {
+  margin-bottom: 25px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.customisation-group:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.group-header h3 {
+  font-size: 17px;
+  margin: 0;
+  color: #444;
+  font-weight: 600;
+}
+
+.required-star {
+  color: #e44d26;
+}
+
+.selection-limit {
+  font-size: 14px;
+  color: #666;
+  font-weight: normal;
+}
+
+.options-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.radio-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkbox-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.option-label:hover {
+  border-color: #ccc;
+  background: #fafafa;
+}
+
+.option-label.selected {
+  border-color: #e44d26;
+  background: #fff5f2;
+}
+
+.option-input {
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.option-name {
+  flex: 1;
+  font-size: 15px;
+  color: #333;
+}
+
+.option-price {
+  font-size: 14px;
+  color: #27ae60;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.option-price-discount {
+  font-size: 14px;
+  color: #e74c3c;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.no-options {
+  color: #999;
+  font-style: italic;
+  padding: 10px 0;
+}
+
+/* Remarks */
+.remarks-section {
+  margin: 30px 0;
+}
+
+.remarks-section h3 {
+  font-size: 17px;
+  margin-bottom: 12px;
+  color: #444;
+}
+
+.remarks-textarea {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 15px;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.remarks-textarea:focus {
+  outline: none;
+  border-color: #e44d26;
+  box-shadow: 0 0 0 2px rgba(228, 77, 38, 0.1);
+}
+
+/* Action Section */
+.action-section {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.quantity-selector label {
+  font-weight: 600;
+  color: #444;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.qty-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 6px;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.qty-btn:hover:not(:disabled) {
+  border-color: #e44d26;
+  color: #e44d26;
+}
+
+.qty-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.qty-display {
+  width: 40px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.total-price {
+  font-size: 20px;
+  color: #333;
+}
+
+.total-price strong {
+  color: #e44d26;
+  font-size: 24px;
+}
+
+.btn-add-to-cart {
+  background: #e44d26;
+  color: white;
+  border: none;
+  padding: 15px 35px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 200px;
+}
+
+.btn-add-to-cart:hover:not(:disabled) {
+  background: #d1401f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(228, 77, 38, 0.3);
+}
+
+.btn-add-to-cart:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Reviews Section */
+.reviews-section {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid #eee;
+}
+
+.reviews-section h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.coming-soon {
+  color: #888;
+  font-style: italic;
+  text-align: center;
+  padding: 30px;
+}

@@ -80,14 +80,14 @@ const Home = () => {
 
     if (error) {
         return (
-        <div className="home-page">
-            <div className="error-message">
-                <p>{error}</p>
-                <button className="btn btn-outline" onClick={fetchMenuItems}>
-                    Retry
-                </button>
+            <div className="home-page">
+                <div className="error-message">
+                    <p>{error}</p>
+                    <button className="btn btn-outline" onClick={fetchMenuItems}>
+                        Retry
+                    </button>
+                </div>
             </div>
-        </div>
         )
     }
 
@@ -95,22 +95,22 @@ const Home = () => {
         <div className="home-page">
             <div className="banner-section">
                 <div className="banner-container">
-                {[
-                    { id: 1, image: '/images/banner.jpg', title: 'New Seasonal Drinks', subtitle: 'Try our autumn specials' },
-                    { id: 2, image: '/images/banner.jpg', title: 'Pastries', subtitle: 'Freshly baked daily' }
-                ].map(banner => (
-                    <div key={banner.id} className="banner-slide">
-                        <div
-                            className="banner-image"
-                            style={{ backgroundImage: `url(${banner.image})` }}
-                        >
-                            <div className="banner-content">
-                            <h2>{banner.title}</h2>
-                            <p>{banner.subtitle}</p>
+                    {[
+                        { id: 1, image: '/images/banner.jpg', title: 'New Seasonal Drinks', subtitle: 'Try our autumn specials' },
+                        { id: 2, image: '/images/banner.jpg', title: 'Pastries', subtitle: 'Freshly baked daily' }
+                    ].map(banner => (
+                        <div key={banner.id} className="banner-slide">
+                            <div
+                                className="banner-image"
+                                style={{ backgroundImage: `url(${banner.image})` }}
+                            >
+                                <div className="banner-content">
+                                <h2>{banner.title}</h2>
+                                <p>{banner.subtitle}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
                 </div>
             </div>
 
@@ -126,13 +126,13 @@ const Home = () => {
                 <div className="categories-container">
                     <div className="categories-scroll" ref={categoriesRef}>
                         {categories.map(category => (
-                        <button
-                            key={category.id}
-                            className={`category-btn ${selectedCategory === category.id ? 'active' : ''}`}
-                            onClick={() => setSelectedCategory(category.id)}
-                        >
-                            <span className="category-name">{category.name}</span>
-                        </button>
+                            <button
+                                key={category.id}
+                                className={`category-btn ${selectedCategory === category.id ? 'active' : ''}`}
+                                onClick={() => setSelectedCategory(category.id)}
+                            >
+                                <span className="category-name">{category.name}</span>
+                            </button>
                         ))}
                     </div>
                 </div>
