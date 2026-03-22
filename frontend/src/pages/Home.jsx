@@ -52,10 +52,8 @@ const Home = () => {
         fetchMenuItems()
     }, [])
 
-    const filteredItems = selectedCategory === 'all'
-        ? menuItems
-        : menuItems.filter(item => item.category === selectedCategory)
-
+    const filteredItems = selectedCategory === 'all' ? menuItems : menuItems.filter(item => item.category === selectedCategory)
+    
     const handleItemClick = (itemId) => {
         window.location.href = `/item/${itemId}`
     }
@@ -69,12 +67,12 @@ const Home = () => {
 
     if (loading) {
         return (
-        <div className="home-page">
-            <div className="loading-spinner">
-                <div className="spinner"></div>
-                <p>Loading menu...</p>
+            <div className="home-page">
+                <div className="loading-spinner">
+                    <div className="spinner"></div>
+                    <p>Loading menu...</p>
+                </div>
             </div>
-        </div>
         )
     }
 
@@ -105,8 +103,8 @@ const Home = () => {
                                 style={{ backgroundImage: `url(${banner.image})` }}
                             >
                                 <div className="banner-content">
-                                <h2>{banner.title}</h2>
-                                <p>{banner.subtitle}</p>
+                                    <h2>{banner.title}</h2>
+                                    <p>{banner.subtitle}</p>
                                 </div>
                             </div>
                         </div>
@@ -140,38 +138,38 @@ const Home = () => {
 
             <div className="menu-section">
                 <div className="menu-grid">
-                {filteredItems.map(item => (
-                    <div
-                        key={item.item_id}
-                        className="menu-item card"
-                        onClick={() => handleItemClick(item.item_id)}
-                    >
-                    <div className="item-image">
-                        <img 
-                            src={`http://localhost:5173${item.image_url}`}
-                            alt={item.name}
-                            onError={(e) => {
-                                console.error('Failed to load:', item.image_url);
-                            }}
-                        />
-                        <div className="item-category-tag">{item.category}</div>
-                    </div>
-
-                    <div className="item-content">
-                        <h3 className="item-title">{item.name}</h3>
-                        <p className="item-description">{item.description}</p>
-
-                        <div className="item-actions">
-                            <button
-                                className="btn btn-primary view-details-btn"
-                                onClick={(e) => { e.stopPropagation(); handleItemClick(item.item_id) }}
-                            >
-                                View Details
-                            </button>
+                    {filteredItems.map(item => (
+                        <div
+                            key={item.item_id}
+                            className="menu-item card"
+                            onClick={() => handleItemClick(item.item_id)}
+                        >
+                        <div className="item-image">
+                            <img 
+                                src={`http://localhost:5173${item.image_url}`}
+                                alt={item.name}
+                                onError={(e) => {
+                                    console.error('Failed to load:', item.image_url);
+                                }}
+                            />
+                            <div className="item-category-tag">{item.category}</div>
                         </div>
-                    </div>
-                    </div>
-                ))}
+
+                        <div className="item-content">
+                            <h3 className="item-title">{item.name}</h3>
+                            <p className="item-description">{item.description}</p>
+
+                            <div className="item-actions">
+                                <button
+                                    className="btn btn-primary view-details-btn"
+                                    onClick={(e) => { e.stopPropagation(); handleItemClick(item.item_id) }}
+                                >
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                        </div>
+                    ))}
                 </div>
 
                 {filteredItems.length === 0 && (

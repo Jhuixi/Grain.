@@ -32,7 +32,7 @@ app.get('/api/test-db', async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`🚀 Server running on port ${port}`);
-  console.log(`📍 Menu endpoint: http://localhost:${port}/api/menu`);
-  console.log(`📍 Health check: http://localhost:${port}/api/health`);
+  console.log(`!!!Server running on port ${port}`);
+  console.log(`Menu endpoint: http://localhost:${port}/api/menu`);
+  console.log(`Health check: http://localhost:${port}/api/health`);
 });

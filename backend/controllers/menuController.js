@@ -58,8 +58,28 @@ const getMenuItemsByCategory = async (req, res) => {
   }
 }
 
+const getItemCustomisations = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const customisations = await menuItem.getCustomisations(id);
+    
+    res.json({
+      success: true,
+      data: customisations
+    });
+  } catch (error) {
+    console.error('Error in getItemCustomisations:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch customisations',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   getAllMenuItems,
   getMenuItemById,
-  getMenuItemsByCategory
+  getMenuItemsByCategory,
+  getItemCustomisations
 }

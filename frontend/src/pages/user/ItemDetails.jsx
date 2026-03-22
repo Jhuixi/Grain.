@@ -37,11 +37,11 @@ const ItemDetails = () => {
                     customData.data.forEach(group => {
                         const availableOptions = group.options.filter(opt => opt.is_available);
                         if (group.is_required && availableOptions.length > 0) {
-                        if (group.max_selections === 1) {
-                            initialSelections[group.id] = [availableOptions[0].id];
-                        } else {
-                            initialSelections[group.id] = [];
-                        }
+                            if (group.max_selections === 1) {
+                                initialSelections[group.id] = [availableOptions[0].id];
+                            } else {
+                                initialSelections[group.id] = [];
+                            }
                         } else {
                             initialSelections[group.id] = group.max_selections === 1 ? null : [];
                         }
@@ -60,34 +60,14 @@ const ItemDetails = () => {
 
     const handleCustomisationChange = (groupId, optionId, isCheckbox = false) => {
         setSelectedCustomisations(prev => {
-        if (isCheckbox) {
-            const current = prev[groupId] || [];
-            const newSelection = current.includes(optionId) ? current.filter(id => id !== optionId) : [...current, optionId]; 
-            return { ...prev, [groupId]: newSelection };
-        } else {
-            return { ...prev, [groupId]: [optionId] };
-        }
+            if (isCheckbox) {
+                const current = prev[groupId] || [];
+                const newSelection = current.includes(optionId) ? current.filter(id => id !== optionId) : [...current, optionId]; 
+                return { ...prev, [groupId]: newSelection };
+            } else {
+                return { ...prev, [groupId]: [optionId] };
+            }
         });
-    };
-
-    const calculateTotalPrice = () => {
-        if (!item) return 0;
-        let total = item.price * quantity;
-        
-        Object.values(selectedCustomisations).forEach(optionIds => {
-            if (!optionIds) return;
-            
-            optionIds.forEach(optionId => {
-                customisationData.forEach(group => {
-                const option = group.options.find(opt => opt.id === optionId);
-                if (option && option.price_adjustment) {
-                    total += option.price_adjustment * quantity;
-                }
-                });
-            });
-        });
-        
-        return total.toFixed(2);
     };
 
     const handleAddToCart = () => {
@@ -105,9 +85,7 @@ const ItemDetails = () => {
         const cartItem = {
             item_id: item.item_id,
             name: item.name,
-            base_price: item.price,
             quantity: quantity,
-            total_price: calculateTotalPrice(),
             customisations: selectedCustomisations,
             remarks: remarks,
             image_url: item.image_url,
@@ -120,10 +98,10 @@ const ItemDetails = () => {
 
     if (loading) {
         return (
-        <div className="loading-container">
-            <div className="spinner"></div>
-            <p>Loading item details...</p>
-        </div>
+            <div className="loading-container">
+                <div className="spinner"></div>
+                <p>Loading item details...</p>
+            </div>
         );
     }
     
@@ -170,7 +148,6 @@ const ItemDetails = () => {
                 
                 <div className="item-info-section">
                     <h1 className="item-title">{item.name}</h1>
-                    <div className="item-price">${item.price.toFixed(2)}</div>
                     
                     <div className="item-description">
                         <h3>Description</h3>
@@ -222,8 +199,6 @@ const ItemDetails = () => {
                                                             className="option-input"
                                                         />
                                                         <span className="option-name">{option.option_name}</span>
-                                                        {option.price_adjustment > 0 && (<span className="option-price">+${option.price_adjustment.toFixed(2)}</span>)}
-                                                        {option.price_adjustment < 0 && (<span className="option-price-discount">-${Math.abs(option.price_adjustment).toFixed(2)}</span>)}
                                                     </label>
                                                 );
                                             })
@@ -263,10 +238,6 @@ const ItemDetails = () => {
                             </div>
                         </div>
                         
-                        <div className="total-price">
-                            Total: <strong>${calculateTotalPrice()}</strong>
-                        </div>
-                        
                         <button 
                             onClick={handleAddToCart}
                             className="btn-add-to-cart"
@@ -281,10 +252,6 @@ const ItemDetails = () => {
                     </div>
                 </div>
             </div>
-            
-            {/* <div className="reviews-section">
-                <h2>Customer Reviews</h2>
-            </div> */}
         </div>
     );
 };
