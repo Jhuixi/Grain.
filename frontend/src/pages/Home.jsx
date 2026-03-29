@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import '../styles/Home.css'
 
-const API_BASE = 'http://localhost:5001/api';
-
 const Home = () => {
     const [menuItems, setMenuItems] = useState([])
     const [categories, setCategories] = useState([])
@@ -13,7 +11,7 @@ const Home = () => {
 
     const fetchMenuItems = async () => {
         try {
-            const response = await fetch(`${API_BASE}/menu`);
+            const response = await fetch(`http://localhost:5001/api/menu`);
             
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status} ${response.statusText}`);

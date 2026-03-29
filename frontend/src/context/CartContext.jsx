@@ -2,11 +2,10 @@ import { createContext, useContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
 
-export const Cart = ({ children }) => {
+export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState([]);
     const [isInitialized, setIsInitialized] = useState(false);
 
-    // Load cart
     useEffect(() => {
         const savedCart = localStorage.getItem('grainCart');
         if (savedCart) {
@@ -20,25 +19,24 @@ export const Cart = ({ children }) => {
         setIsInitialized(true);
     }, []);
 
-    // Save cart
     useEffect(() => {
         if (isInitialized) {
             localStorage.setItem('grainCart', JSON.stringify(cart));
         }
     }, [cart, isInitialized]);
 
-    // Add item to cart
+    // Add
     const addToCart = (item) => {
         const cartItem = {
             ...item,
-            cartItemId: Date.now() + Math.random().toString(36) // Generate unique ID with timestamp
+            cartItemId: Date.now() + Math.random().toString(36) 
         };
         
         setCart(prev => [...prev, cartItem]);
         return cartItem;
     };
 
-    // Remove item
+    // Remove
     const removeFromCart = (cartItemId) => {
         setCart(prev => prev.filter(item => item.cartItemId !== cartItemId));
     };
@@ -52,7 +50,7 @@ export const Cart = ({ children }) => {
         ));
     };
 
-    // Clear entire cart
+    // Clear cart
     const clearCart = () => {
         setCart([]);
     };
@@ -62,7 +60,6 @@ export const Cart = ({ children }) => {
     // Check if cart is empty
     const isCartEmpty = cart.length === 0;
 
-    // Value provided to consumers
     const value = {
         cart,
         addToCart,
@@ -80,7 +77,6 @@ export const Cart = ({ children }) => {
     );
 };
 
-// Custom hook to use cart context
 export const useCart = () => {
     const context = useContext(CartContext);
     if (!context) {

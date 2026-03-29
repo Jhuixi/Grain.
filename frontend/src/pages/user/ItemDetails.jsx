@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { Modal, Button } from 'rsuite';
 import '../../styles/ItemDetails.css';
 
 const API_BASE = 'http://localhost:5001/api';
@@ -33,19 +34,18 @@ const ItemDetails = () => {
                 const customData = await customResponse.json();
                 if (customData.success) {
                     setCustomisationData(customData.data);
+                    
                     const initialSelections = {};
                     customData.data.forEach(group => {
-                        const availableOptions = group.options.filter(opt => opt.is_available);
-                        if (group.is_required && availableOptions.length > 0) {
-                            if (group.max_selections === 1) {
-                                initialSelections[group.id] = [availableOptions[0].id];
-                            } else {
-                                initialSelections[group.id] = [];
-                            }
-                        } else {
-                            initialSelections[group.id] = group.max_selections === 1 ? null : [];
+                        initialSelections[group.id] = [];
+                    });
+                    
+                    customData.data.forEach(group => {
+                        if (group.is_required && group.options.length > 0) {
+                            initialSelections[group.id] = [group.options[0].id];
                         }
                     });
+                    
                     setSelectedCustomisations(initialSelections);
                 }
             } catch (err) {
@@ -72,29 +72,73 @@ const ItemDetails = () => {
 
     const handleAddToCart = () => {
         if (!item) return;
+        const customisations = {};
         
-        const missingRequired = customisationData.filter(group => 
-            group.is_required && (!selectedCustomisations[group.id] || selectedCustomisations[group.id].length === 0)
-        );
-        
-        if (missingRequired.length > 0) {
-            alert(`Please select: ${missingRequired.map(g => g.name).join(', ')}`);
-            return;
-        }
+        Object.entries(selectedCustomisations).forEach(([groupId, optionIds]) => {
+            if (optionIds && optionIds.length > 0) {
+            const group = customisationData.find(g => g.id === parseInt(groupId));
+            
+            const optionDetails = optionIds.map(optionId => {
+                const option = group?.options.find(opt => opt.id === optionId);
+                return {
+                id: optionId,
+                name: option?.option_name || `Option ${optionId}`
+                };
+            });
+            
+            customisations[groupId] = {
+                groupName: group?.name || `Group ${groupId}`,
+                options: optionDetails
+            };
+            }
+        });
         
         const cartItem = {
             item_id: item.item_id,
             name: item.name,
             quantity: quantity,
-            customisations: selectedCustomisations,
+            customisations: customisations,
             remarks: remarks,
             image_url: item.image_url,
             category: item.category
         };
         
         addToCart(cartItem);
-        alert(`Added ${quantity} ${item.name}(s) to cart!`);
+        // alert(`Added ${quantity} ${item.name}(s) to cart!`);
+        return (
+            <Modal open={open} >
+                <Modal.Header>
+                    <Modal.Title>Added ${quantity} ${item.name}(s) to cart.</Modal.Title>
+                </Modal.Header>
+                <Modal.Footer>
+                    <Button onClick={navigate('/cart')} appearance="subtle">
+                        View Cart
+                    </Button>
+                    <Button onClick={navigate('/')} appearance="primary">
+                        Return to Main Menu
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        )
     };
+
+    // const addCartModal = () => {
+    //     return (
+    //         <Modal open={open} onClose={handleClose}>
+    //             <Modal.Header>
+    //                 <Modal.Title>Added ${quantity} ${item.name}(s) to cart.</Modal.Title>
+    //             </Modal.Header>
+    //             <Modal.Footer>
+    //                 <Button onClick={navigate('/cart')} appearance="subtle">
+    //                     View Cart
+    //                 </Button>
+    //                 <Button onClick={navigate('/')} appearance="primary">
+    //                     Return to Main Menu
+    //                 </Button>
+    //             </Modal.Footer>
+    //         </Modal>
+    //     )
+    // }
 
     if (loading) {
         return (
