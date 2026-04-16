@@ -1,29 +1,20 @@
 import { useState, useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Order.css';
 
 const Order = () => {
+    const { user, isAuthenticated } = useAuth();
     const { cart, clearCart, itemCount } = useCart();
     const navigate = useNavigate();
     
     const [guestName, setGuestName] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [userName, setUserName] = useState('');
     const [isPlacingOrder, setIsPlacingOrder] = useState(false);
     const [error, setError] = useState('');
 
-    useEffect(() => {
-        const storedUser = localStorage.getItem('currentUser');
-        if (storedUser) {
-            const user = JSON.parse(storedUser);
-            setIsLoggedIn(true);
-            setUserName(user.username);
-        }
-    }, []);
-
     const handleConfirmOrder = async () => {
-        if (!isLoggedIn && !guestName.trim()) {
+        if (!isAuthenticated && !guestName.trim()) {
             setError('Please enter your name');
             return;
         }
@@ -39,8 +30,8 @@ const Order = () => {
                     customisations: item.customisations,
                     remarks: item.remarks || null
                 })),
-                guestName: !isLoggedIn ? guestName : null,
-                // userId: isLoggedIn ? userId : null
+                guestName: isAuthenticated ? null : guestName,
+                userId: isAuthenticated ? user.user_id : null
             };
             const response = await fetch(`http://localhost:5001/api/createOrder`, {
                 method: 'POST',
@@ -59,7 +50,7 @@ const Order = () => {
             navigate(`/order-confirmation/${data.data.orderId}`, {
                 state: { 
                     orderId: data.data.orderId,
-                    customerName: isLoggedIn ? userName : guestName,
+                    customerName: isAuthenticated ? user.username : guestName,
                     items: cart
                 }
             });
@@ -79,12 +70,11 @@ const Order = () => {
     return (
         <div className="order-page">
             <h1>Review Your Order</h1>
-            <p className="order-subtitle">Please confirm your items before submitting</p>
-            
+            <br/>
             <div className="order-container">
                 <div className="order-summary">
                     <div className="order-summary-header">
-                        <h2>Your Items</h2>
+                        <h2>Order Summary</h2>
                         <p>{itemCount} item{itemCount !== 1 ? 's' : ''}</p>
                     </div>
                     
@@ -118,15 +108,14 @@ const Order = () => {
                 
                 {/* Customer Info */}
                 <div className="customer-info">
-                    <h2>Pickup Details</h2>
+                    <h2>Details</h2>
                     
-                    {isLoggedIn ? (
+                    {isAuthenticated ? (
                         <div className="logged-in-info">
                             <div className="info-row">
                                 <span className="info-label">Name:</span>
-                                <span className="info-value">{userName}</span>
+                                <span className="info-value">{user.username}</span>
                             </div>
-                            <p className="info-note">Order ready for pickup</p>
                         </div>
                     ) : (
                         <div className="guest-form">
@@ -155,7 +144,7 @@ const Order = () => {
                     </button>
                     <button 
                         onClick={handleConfirmOrder}
-                        disabled={isPlacingOrder || (!isLoggedIn && !guestName.trim())}
+                        disabled={isPlacingOrder || (!isAuthenticated && !guestName.trim())}
                         className="btn-primary"
                     >
                         {isPlacingOrder ? 'Placing...' : 'Confirm Order'}

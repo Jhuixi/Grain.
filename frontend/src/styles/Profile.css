@@ -1,0 +1,135 @@
+/* frontend/src/styles/Profile.css */
+.profile-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: #f8fafc;
+}
+
+.profile-container {
+  width: 100%;
+  max-width: 500px;
+  animation: fadeInUp 0.4s ease;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  border: 1px solid #eef2f6;
+}
+
+.profile-avatar {
+  margin-bottom: 24px;
+}
+
+.avatar-circle {
+  width: 100px;
+  height: 100px;
+  background: #5a9c6e;
+  color: white;
+  font-size: 48px;
+  font-weight: 600;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(90, 156, 110, 0.3);
+}
+
+.profile-card h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin-bottom: 32px;
+}
+
+.profile-info {
+  text-align: left;
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 32px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-weight: 500;
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.info-value {
+  color: #1e2a32;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: center;
+}
+
+.logout-btn {
+  background: #f1f3f5;
+  color: #4a5568;
+  border: 1px solid #e2e8f0;
+  padding: 12px 32px;
+  border-radius: 40px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #e9ecef;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add to existing Profile.css */
+.history-btn {
+  background: #5a9c6e;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 40px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.history-btn:hover {
+  background: #4a8a5e;
+  transform: translateY(-1px);
+}

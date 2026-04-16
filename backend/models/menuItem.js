@@ -92,9 +92,27 @@ const getCustomisations = async (itemId) => {
 	}
 }
 
+const getUserOrders = async (req, res) => {
+	try {
+		const { userId } = req.params;
+		const orders = await orderModel.getOrdersByUserId(userId);
+		res.json({
+			success: true,
+			data: orders
+		});
+	} catch (error) {
+		console.error('Error in getUserOrders:', error);
+		res.status(500).json({ 
+			success: false, 
+			message: 'Failed to fetch orders' 
+		});
+	}
+};
+
 module.exports = {
-  getAllMenuItems,
-  getMenuItemById,
-  getMenuItemsByCategory,
-  getCustomisations
+	getAllMenuItems,
+	getMenuItemById,
+	getMenuItemsByCategory,
+	getCustomisations,
+	getUserOrders
 }

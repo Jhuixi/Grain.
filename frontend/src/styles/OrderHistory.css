@@ -1,0 +1,163 @@
+/* frontend/src/styles/OrderHistory.css */
+.history-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 70vh;
+}
+
+.history-header {
+  margin-bottom: 32px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #5a9c6e;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+}
+
+.history-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.order-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eef2f6;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.order-number {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-pending {
+  background: #fff3e0;
+  color: #e67e22;
+}
+.status-confirmed {
+  background: #e3f2fd;
+  color: #2196f3;
+}
+.status-preparing {
+  background: #f3e5f5;
+  color: #9c27b0;
+}
+.status-ready {
+  background: #e8f5e9;
+  color: #4caf50;
+}
+.status-completed {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.status-cancelled {
+  background: #ffebee;
+  color: #f44336;
+}
+
+.order-card-body {
+  margin-bottom: 12px;
+}
+
+.order-date, .order-completed {
+  font-size: 14px;
+  color: #6c757d;
+  margin: 4px 0;
+}
+
+.order-card-footer {
+  text-align: right;
+}
+
+.view-details {
+  font-size: 14px;
+  color: #5a9c6e;
+  font-weight: 500;
+}
+
+.empty-orders {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+}
+
+.empty-orders h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.empty-orders p {
+  color: #6c757d;
+  margin-bottom: 24px;
+}
+
+.history-loading, .history-error {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #5a9c6e;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

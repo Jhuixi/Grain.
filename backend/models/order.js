@@ -4,11 +4,6 @@ const createOrder = async (orderData) => {
     const client = await pool.connect();
 	try {
 		await client.query('BEGIN');
-		// const orderResult = await client.query(`
-		// 	INSERT INTO orders (user_id, guest_name, status, order_date)
-		// 	VALUES ($1, $2, 'pending', NOW())
-		// 	RETURNING order_id
-		// `, [orderData.userId, orderData.guestName]);
 		const orderResult = await client.query(`
 			INSERT INTO orders (user_id, guest_name, status, order_date)
 			VALUES ($1, $2, 'pending', NOW())
@@ -94,4 +89,24 @@ const getOrderById = async (orderId) => {
 	}
 };
 
-module.exports = { createOrder, getOrderById };
+const getOrdersByUserId = async (userId) => {
+	console.log(userId)
+	const result = await pool.query(`
+		SELECT 
+			order_id,
+			status,
+			order_date,
+			completed_date
+		FROM orders 
+		WHERE user_id = $1
+		ORDER BY order_date DESC
+	`, [userId]);
+	
+	return result.rows;
+};
+
+module.exports = { 
+	createOrder, 
+	getOrderById,
+	getOrdersByUserId
+};

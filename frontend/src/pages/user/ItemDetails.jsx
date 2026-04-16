@@ -4,8 +4,6 @@ import { useCart } from '../../context/CartContext';
 import { Modal, Button } from 'rsuite';
 import '../../styles/ItemDetails.css';
 
-const API_BASE = 'http://localhost:5001/api';
-
 const ItemDetails = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -25,12 +23,12 @@ const ItemDetails = () => {
                 setLoading(true);
                 
                 //get item
-                const itemResponse = await fetch(`${API_BASE}/menu/${id}`);
+                const itemResponse = await fetch(`http://localhost:5001/api/menu/${id}`);
                 const itemData = await itemResponse.json();
                 setItem(itemData.data);
                 
                 //get customisation
-                const customResponse = await fetch(`${API_BASE}/menu/${id}/customisations`);
+                const customResponse = await fetch(`http://localhost:5001/api/customisations`);
                 const customData = await customResponse.json();
                 if (customData.success) {
                     setCustomisationData(customData.data);

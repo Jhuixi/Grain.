@@ -2,7 +2,7 @@ const orderModel = require('../models/order');
 
 const createOrder = async (req, res) => {
 	try {
-		const { items, guestName } = req.body;
+		const { items, guestName, userId } = req.body;
 		// Validation
 		if (!items || items.length === 0) {
 			return res.status(400).json({ 
@@ -11,8 +11,7 @@ const createOrder = async (req, res) => {
 			});
 		}
 		
-		// if (!userId && (!guestName || !guestName.trim())) {
-		if (!guestName || !guestName.trim()) {
+		if (!userId && (!guestName || !guestName.trim())) {
 			return res.status(400).json({ 
 				success: false, 
 				message: 'Guest name is required' 
@@ -20,9 +19,9 @@ const createOrder = async (req, res) => {
 		}
 		
 		const order = await orderModel.createOrder({
-			userId: null, 
-			// guestName: !userId ? guestName : null,
-			guestName: guestName,
+			userId: userId || null,
+			guestName: userId ? null : guestName,
+			// guestName: guestName,
 			items: items
 		});
 		
@@ -44,7 +43,6 @@ const createOrder = async (req, res) => {
 	}
 };
 
-// Get order details
 const getOrder = async (req, res) => {
   try {
     const { id } = req.params;
@@ -66,4 +64,25 @@ const getOrder = async (req, res) => {
   }
 };
 
-module.exports = { createOrder, getOrder };
+const getUserOrders = async (req, res) => {
+	try {
+		const { userId } = req.params;
+		const orders = await orderModel.getOrdersByUserId(userId);
+		res.json({
+			success: true,
+			data: orders
+		});
+ 	} catch (error) {
+		console.error('Error in getUserOrders:', error);
+		res.status(500).json({ 
+			success: false, 
+			message: 'Failed to fetch orders' 
+		});
+	}
+};
+
+module.exports = { 
+	createOrder, 
+	getOrder, 
+	getUserOrders 
+};

@@ -9,11 +9,13 @@ app.use(cors());
 app.use(express.json());
 
 //------------------------------ Routes -----------------------------------
+const authRoutes = require('./routes/authRoutes');
 const menuRoutes = require('./routes/menuRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
+app.use('/api/auth', authRoutes);
 app.use('/api/menu', menuRoutes); 
-app.use('/api/createOrder', orderRoutes);
+app.use('/api/orders', orderRoutes);
 
 
 app.listen(port, () => {
