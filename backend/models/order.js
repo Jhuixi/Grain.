@@ -74,6 +74,8 @@ const getOrderById = async (orderId) => {
 		return {
 			orderId: order.order_id,
 			customerName: customerName,
+			guest_name: order.guest_name,
+      		registered_username: order.registered_username,
 			status: order.status,
 			orderDate: order.order_date,
 			completedDate: order.completed_date,

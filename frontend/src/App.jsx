@@ -17,6 +17,7 @@ import Signup from './pages/user/Signup';
 import Profile from './pages/user/Profile';
 import OrderHistory from './pages/user/OrderHistory';
 import OrderHistoryDetails from './pages/user/OrderHistoryDetails';
+import TrackOrder from './pages/user/TrackOrder';
 
 // import AdminPage from './pages/admin/Admin'
 
@@ -41,6 +42,7 @@ function App() {
                                 <Route path="/profile" element={ <ProtectedRoute> <Profile /> </ProtectedRoute>} />
                                 <Route path="/orders" element={<ProtectedRoute><OrderHistory /></ProtectedRoute>} />
                                 <Route path="/orders/:orderId" element={<ProtectedRoute><OrderHistoryDetails /></ProtectedRoute>} />
+                                <Route path="/track-order" element={<TrackOrder />} />
                                 {/* <Route path="/admin" element={<AdminPage />} /> */}
                             </Routes> 
                         </main>

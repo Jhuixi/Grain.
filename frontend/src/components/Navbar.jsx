@@ -2,7 +2,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useCart } from '../context/CartContext'
 import { Badge } from 'rsuite'
-import { CartIcon, UserIcon } from './Icon'
+import { CartIcon, UserIcon, OrderIcon } from './Icon'
 import '../styles/Navbar.css'
 
 
@@ -38,6 +38,9 @@ const Navbar = ({ cartItemCount }) => {
 						</>
 						) : (
 						<>
+							<button className="icon-btn" onClick={() => navigate('/track-order')}>
+								<OrderIcon /> 
+							</button>
 							<button className="icon-btn" onClick={() => navigate('/login')}>
 								<UserIcon />
 							</button>

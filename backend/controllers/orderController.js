@@ -81,8 +81,48 @@ const getUserOrders = async (req, res) => {
 	}
 };
 
+const trackOrder = async (req, res) => {
+	try {
+		const { orderId, name } = req.body;
+		if (!orderId || !name) {
+			return res.status(400).json({ 
+				success: false, 
+				message: 'Order ID and name are required' 
+			});
+		}
+		
+		const order = await orderModel.getOrderById(orderId);
+		
+		if (!order) {
+			return res.status(404).json({ 
+				success: false, 
+				message: 'Order not found' 
+			});
+		}
+		
+		const orderName = order.guest_name || order.registered_username;
+		
+		if (orderName?.toLowerCase() !== name.trim().toLowerCase()) {
+			return res.status(403).json({ 
+				success: false, 
+				message: 'Name does not match this order' 
+			});
+		}
+		
+		res.json({ success: true, data: order });
+		
+	} catch (error) {
+		console.error('Error in trackOrder:', error);
+		res.status(500).json({ 
+			success: false, 
+			message: 'Failed to track order' 
+		});
+	}
+};
+
 module.exports = { 
 	createOrder, 
 	getOrder, 
-	getUserOrders 
+	getUserOrders,
+	trackOrder
 };
