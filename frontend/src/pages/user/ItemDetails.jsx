@@ -28,7 +28,7 @@ const ItemDetails = () => {
                 setItem(itemData.data);
                 
                 //get customisation
-                const customResponse = await fetch(`http://localhost:5001/api/customisations`);
+                const customResponse = await fetch(`http://localhost:5001/api/menu/${id}/customisations`);
                 const customData = await customResponse.json();
                 if (customData.success) {
                     setCustomisationData(customData.data);
