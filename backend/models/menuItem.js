@@ -5,7 +5,7 @@ const getAllMenuItems = async () => {
 		const result = await pool.query(`
 		SELECT * FROM menu_items 
 		--WHERE qty != 0
-		ORDER BY category, item_id
+		ORDER BY item_id
 		`)
 		return result.rows
 	} catch (error) {

@@ -3,7 +3,6 @@ const orderModel = require('../models/order');
 const createOrder = async (req, res) => {
 	try {
 		const { items, guestName, userId } = req.body;
-		// Validation
 		if (!items || items.length === 0) {
 			return res.status(400).json({ 
 				success: false, 
@@ -44,24 +43,24 @@ const createOrder = async (req, res) => {
 };
 
 const getOrder = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const order = await orderModel.getOrderById(id);
-    
-    if (!order) {
-      return res.status(404).json({ 
-        success: false, 
-        message: 'Order not found' 
-      });
-    }
-    res.json({ success: true, data: order });
-  } catch (error) {
-    console.error('Error in getOrder:', error);
-    res.status(500).json({ 
-      success: false, 
-      message: 'Failed to fetch order' 
-    });
-  }
+	try {
+		const { id } = req.params;
+		const order = await orderModel.getOrderById(id);
+		
+		if (!order) {
+			return res.status(404).json({ 
+				success: false, 
+				message: 'Order not found' 
+			});
+		}
+		res.json({ success: true, data: order });
+	} catch (error) {
+		console.error('Error in getOrder:', error);
+		res.status(500).json({ 
+			success: false, 
+			message: 'Failed to fetch order' 
+		});
+	}
 };
 
 const getUserOrders = async (req, res) => {

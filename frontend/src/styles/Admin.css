@@ -1,0 +1,25 @@
+body {
+  margin: 20;
+}
+
+.admin-app {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.rs-sidebar ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.rs-sidebar ::-webkit-scrollbar-track {
+  background: #d82626;
+}
+
+.rs-sidebar ::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.rs-sidebar ::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
